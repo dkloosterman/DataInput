@@ -5,6 +5,10 @@
  */
 package DataInput_pkg;
 
+import Instrument_pkg.Instrument;
+import JDBCqueries_pkg.JDBCqueries;
+import java.util.ArrayList;
+
 /**
  *
  * @author David Kloosterman
@@ -16,6 +20,9 @@ public class DataInputForm extends javax.swing.JFrame {
      */
     public DataInputForm() {
         initComponents();
+
+        ObjectSelectComboBox.setSelectedIndex(0);
+
     }
 
     /**
@@ -34,9 +41,14 @@ public class DataInputForm extends javax.swing.JFrame {
         ReadRadioButton = new javax.swing.JRadioButton();
         UpdateRadioButton = new javax.swing.JRadioButton();
         DeleteRadioButton = new javax.swing.JRadioButton();
-        jPanel1 = new javax.swing.JPanel();
-        jPanel4 = new javax.swing.JPanel();
-        jPanel2 = new javax.swing.JPanel();
+        UpperRightPanel = new javax.swing.JPanel();
+        LowerLeftPanel = new javax.swing.JPanel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        inputTextArea = new javax.swing.JTextArea();
+        submitQueryButton = new javax.swing.JButton();
+        LowerRightPanel = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        resultTextArea = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Data Input");
@@ -45,7 +57,12 @@ public class DataInputForm extends javax.swing.JFrame {
         UpperLeftPanel.setBackground(new java.awt.Color(204, 204, 255));
         UpperLeftPanel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        ObjectSelectComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Instrument", "Cartridge", "Test Instances", "Errors" }));
+        ObjectSelectComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Instrument", "Instrument Deployment", "Cartridge", "Test Instances", "Errors" }));
+        ObjectSelectComboBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ObjectSelectComboBoxActionPerformed(evt);
+            }
+        });
 
         CRUD_ButtonGroup.add(CreateRadioButton);
         CreateRadioButton.setText("Create");
@@ -87,61 +104,142 @@ public class DataInputForm extends javax.swing.JFrame {
                 .addComponent(UpdateRadioButton)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(DeleteRadioButton)
-                .addContainerGap(37, Short.MAX_VALUE))
+                .addContainerGap(68, Short.MAX_VALUE))
         );
 
         getContentPane().add(UpperLeftPanel);
 
-        jPanel1.setBackground(new java.awt.Color(204, 204, 255));
-        jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        UpperRightPanel.setBackground(new java.awt.Color(204, 204, 255));
+        UpperRightPanel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout UpperRightPanelLayout = new javax.swing.GroupLayout(UpperRightPanel);
+        UpperRightPanel.setLayout(UpperRightPanelLayout);
+        UpperRightPanelLayout.setHorizontalGroup(
+            UpperRightPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 284, Short.MAX_VALUE)
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 167, Short.MAX_VALUE)
+        UpperRightPanelLayout.setVerticalGroup(
+            UpperRightPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 198, Short.MAX_VALUE)
         );
 
-        getContentPane().add(jPanel1);
+        getContentPane().add(UpperRightPanel);
 
-        jPanel4.setBackground(new java.awt.Color(204, 204, 255));
-        jPanel4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        LowerLeftPanel.setBackground(new java.awt.Color(204, 204, 255));
+        LowerLeftPanel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
-        jPanel4.setLayout(jPanel4Layout);
-        jPanel4Layout.setHorizontalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 284, Short.MAX_VALUE)
+        inputTextArea.setColumns(20);
+        inputTextArea.setLineWrap(true);
+        inputTextArea.setRows(5);
+        inputTextArea.setText("Query");
+        jScrollPane2.setViewportView(inputTextArea);
+
+        submitQueryButton.setText("Submit");
+
+        javax.swing.GroupLayout LowerLeftPanelLayout = new javax.swing.GroupLayout(LowerLeftPanel);
+        LowerLeftPanel.setLayout(LowerLeftPanelLayout);
+        LowerLeftPanelLayout.setHorizontalGroup(
+            LowerLeftPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(LowerLeftPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(LowerLeftPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 264, Short.MAX_VALUE)
+                    .addGroup(LowerLeftPanelLayout.createSequentialGroup()
+                        .addComponent(submitQueryButton)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
-        jPanel4Layout.setVerticalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 167, Short.MAX_VALUE)
+        LowerLeftPanelLayout.setVerticalGroup(
+            LowerLeftPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(LowerLeftPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 147, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(submitQueryButton)
+                .addContainerGap())
         );
 
-        getContentPane().add(jPanel4);
+        getContentPane().add(LowerLeftPanel);
 
-        jPanel2.setBackground(new java.awt.Color(204, 204, 255));
-        jPanel2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        LowerRightPanel.setBackground(new java.awt.Color(204, 204, 255));
+        LowerRightPanel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 284, Short.MAX_VALUE)
+        resultTextArea.setColumns(20);
+        resultTextArea.setRows(5);
+        resultTextArea.setText("SQL Result");
+        jScrollPane1.setViewportView(resultTextArea);
+
+        javax.swing.GroupLayout LowerRightPanelLayout = new javax.swing.GroupLayout(LowerRightPanel);
+        LowerRightPanel.setLayout(LowerRightPanelLayout);
+        LowerRightPanelLayout.setHorizontalGroup(
+            LowerRightPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, LowerRightPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 264, Short.MAX_VALUE)
+                .addContainerGap())
         );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 167, Short.MAX_VALUE)
+        LowerRightPanelLayout.setVerticalGroup(
+            LowerRightPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, LowerRightPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 176, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
-        getContentPane().add(jPanel2);
+        getContentPane().add(LowerRightPanel);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void ObjectSelectComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ObjectSelectComboBoxActionPerformed
+        try {
+            ArrayList<String> columnNames = new ArrayList<String>();
+            JDBCqueries queries = new JDBCqueries();
+            String tableName = null;
+
+            resultTextArea.setText((String) ObjectSelectComboBox.getSelectedItem());
+            switch ((String) ObjectSelectComboBox.getSelectedItem()) {
+
+                case "Instrument":
+                    tableName = "Instrument_Manufactured";
+                    break;
+
+                case "Instrument Deployment":
+                    tableName = "Instrument_Deployed";
+                    break;
+
+                case "Cartridge":
+                    tableName = "Cartridge_Manufactured";
+                    break;
+                    
+                case "Test Instances":
+                    tableName = "Clinical_Test_Instance";
+                    break;
+                    
+                case "Errors":
+                    tableName = "Errors";
+                    break;
+                    
+                default:
+                    System.out.println("Unknown button pressed");
+                    break;
+            }
+
+            resultTextArea.setText("");
+            columnNames = queries.getTableColumnNames(tableName);
+            for (String Name : columnNames) {
+                resultTextArea.setText(resultTextArea.getText() + Name + "\n");
+            }
+
+        } catch (Exception e) {
+            // handle the error
+            System.out.println("\n" + "General Exception " + e.getMessage());
+            System.exit(0);
+        } finally {
+            //finally block used to close resources
+
+        }   //end finally 
+    }//GEN-LAST:event_ObjectSelectComboBoxActionPerformed
 
     /**
      * @param args the command line arguments
@@ -178,16 +276,22 @@ public class DataInputForm extends javax.swing.JFrame {
         });
     }
 
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.ButtonGroup CRUD_ButtonGroup;
     private javax.swing.JRadioButton CreateRadioButton;
     private javax.swing.JRadioButton DeleteRadioButton;
+    private javax.swing.JPanel LowerLeftPanel;
+    private javax.swing.JPanel LowerRightPanel;
     private javax.swing.JComboBox<String> ObjectSelectComboBox;
     private javax.swing.JRadioButton ReadRadioButton;
     private javax.swing.JRadioButton UpdateRadioButton;
     private javax.swing.JPanel UpperLeftPanel;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel UpperRightPanel;
+    private javax.swing.JTextArea inputTextArea;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTextArea resultTextArea;
+    private javax.swing.JButton submitQueryButton;
     // End of variables declaration//GEN-END:variables
 }
