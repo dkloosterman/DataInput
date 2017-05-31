@@ -5,7 +5,6 @@
  */
 package DataInput_pkg;
 
-import Instrument_pkg.Instrument;
 import JDBCqueries_pkg.JDBCqueries;
 import java.util.ArrayList;
 
@@ -14,6 +13,8 @@ import java.util.ArrayList;
  * @author David Kloosterman
  */
 public class DataInputForm extends javax.swing.JFrame {
+
+    private final int MaxNumberOfColumnCheckBoxes = 11;
 
     /**
      * Creates new form DataInputForm
@@ -35,6 +36,7 @@ public class DataInputForm extends javax.swing.JFrame {
     private void initComponents() {
 
         CRUD_ButtonGroup = new javax.swing.ButtonGroup();
+        jPanel1 = new javax.swing.JPanel();
         UpperLeftPanel = new javax.swing.JPanel();
         ObjectSelectComboBox = new javax.swing.JComboBox<>();
         CreateRadioButton = new javax.swing.JRadioButton();
@@ -42,6 +44,17 @@ public class DataInputForm extends javax.swing.JFrame {
         UpdateRadioButton = new javax.swing.JRadioButton();
         DeleteRadioButton = new javax.swing.JRadioButton();
         UpperRightPanel = new javax.swing.JPanel();
+        columnCheckBox1 = new javax.swing.JCheckBox();
+        columnCheckBox2 = new javax.swing.JCheckBox();
+        columnCheckBox3 = new javax.swing.JCheckBox();
+        columnCheckBox4 = new javax.swing.JCheckBox();
+        columnCheckBox5 = new javax.swing.JCheckBox();
+        columnCheckBox6 = new javax.swing.JCheckBox();
+        columnCheckBox7 = new javax.swing.JCheckBox();
+        columnCheckBox8 = new javax.swing.JCheckBox();
+        columnCheckBox9 = new javax.swing.JCheckBox();
+        columnCheckBox10 = new javax.swing.JCheckBox();
+        columnCheckBox11 = new javax.swing.JCheckBox();
         LowerLeftPanel = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         inputTextArea = new javax.swing.JTextArea();
@@ -49,6 +62,17 @@ public class DataInputForm extends javax.swing.JFrame {
         LowerRightPanel = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         resultTextArea = new javax.swing.JTextArea();
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 100, Short.MAX_VALUE)
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 100, Short.MAX_VALUE)
+        );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Data Input");
@@ -66,16 +90,36 @@ public class DataInputForm extends javax.swing.JFrame {
 
         CRUD_ButtonGroup.add(CreateRadioButton);
         CreateRadioButton.setText("Create");
+        CreateRadioButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CreateRadioButtonActionPerformed(evt);
+            }
+        });
 
         CRUD_ButtonGroup.add(ReadRadioButton);
         ReadRadioButton.setSelected(true);
         ReadRadioButton.setText("Read");
+        ReadRadioButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ReadRadioButtonActionPerformed(evt);
+            }
+        });
 
         CRUD_ButtonGroup.add(UpdateRadioButton);
         UpdateRadioButton.setText("Update");
+        UpdateRadioButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                UpdateRadioButtonActionPerformed(evt);
+            }
+        });
 
         CRUD_ButtonGroup.add(DeleteRadioButton);
         DeleteRadioButton.setText("Delete");
+        DeleteRadioButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                DeleteRadioButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout UpperLeftPanelLayout = new javax.swing.GroupLayout(UpperLeftPanel);
         UpperLeftPanel.setLayout(UpperLeftPanelLayout);
@@ -89,7 +133,7 @@ public class DataInputForm extends javax.swing.JFrame {
                     .addComponent(CreateRadioButton)
                     .addComponent(ReadRadioButton)
                     .addComponent(ObjectSelectComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(54, Short.MAX_VALUE))
+                .addContainerGap(81, Short.MAX_VALUE))
         );
         UpperLeftPanelLayout.setVerticalGroup(
             UpperLeftPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -104,7 +148,7 @@ public class DataInputForm extends javax.swing.JFrame {
                 .addComponent(UpdateRadioButton)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(DeleteRadioButton)
-                .addContainerGap(68, Short.MAX_VALUE))
+                .addContainerGap(137, Short.MAX_VALUE))
         );
 
         getContentPane().add(UpperLeftPanel);
@@ -112,15 +156,75 @@ public class DataInputForm extends javax.swing.JFrame {
         UpperRightPanel.setBackground(new java.awt.Color(204, 204, 255));
         UpperRightPanel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
+        columnCheckBox1.setSelected(true);
+        columnCheckBox1.setText("jCheckBox1");
+
+        columnCheckBox2.setText("jCheckBox2");
+
+        columnCheckBox3.setText("jCheckBox3");
+
+        columnCheckBox4.setText("jCheckBox4");
+
+        columnCheckBox5.setText("jCheckBox5");
+
+        columnCheckBox6.setText("jCheckBox6");
+
+        columnCheckBox7.setText("jCheckBox7");
+
+        columnCheckBox8.setText("jCheckBox8");
+
+        columnCheckBox9.setText("jCheckBox9");
+
+        columnCheckBox10.setText("jCheckBox10");
+
+        columnCheckBox11.setText("jCheckBox11");
+
         javax.swing.GroupLayout UpperRightPanelLayout = new javax.swing.GroupLayout(UpperRightPanel);
         UpperRightPanel.setLayout(UpperRightPanelLayout);
         UpperRightPanelLayout.setHorizontalGroup(
             UpperRightPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 284, Short.MAX_VALUE)
+            .addGroup(UpperRightPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(UpperRightPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(columnCheckBox1)
+                    .addComponent(columnCheckBox2)
+                    .addComponent(columnCheckBox3)
+                    .addComponent(columnCheckBox4)
+                    .addComponent(columnCheckBox5)
+                    .addComponent(columnCheckBox6)
+                    .addComponent(columnCheckBox7)
+                    .addComponent(columnCheckBox8)
+                    .addComponent(columnCheckBox9)
+                    .addComponent(columnCheckBox10)
+                    .addComponent(columnCheckBox11))
+                .addContainerGap(218, Short.MAX_VALUE))
         );
         UpperRightPanelLayout.setVerticalGroup(
             UpperRightPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 198, Short.MAX_VALUE)
+            .addGroup(UpperRightPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(columnCheckBox1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(columnCheckBox2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(columnCheckBox3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(columnCheckBox4)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(columnCheckBox5)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(columnCheckBox6)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(columnCheckBox7)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(columnCheckBox8)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(columnCheckBox9)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(columnCheckBox10)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(columnCheckBox11)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         getContentPane().add(UpperRightPanel);
@@ -131,7 +235,7 @@ public class DataInputForm extends javax.swing.JFrame {
         inputTextArea.setColumns(20);
         inputTextArea.setLineWrap(true);
         inputTextArea.setRows(5);
-        inputTextArea.setText("Query");
+        inputTextArea.setText("Select");
         jScrollPane2.setViewportView(inputTextArea);
 
         submitQueryButton.setText("Submit");
@@ -143,7 +247,7 @@ public class DataInputForm extends javax.swing.JFrame {
             .addGroup(LowerLeftPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(LowerLeftPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 264, Short.MAX_VALUE)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 291, Short.MAX_VALUE)
                     .addGroup(LowerLeftPanelLayout.createSequentialGroup()
                         .addComponent(submitQueryButton)
                         .addGap(0, 0, Short.MAX_VALUE)))
@@ -153,7 +257,7 @@ public class DataInputForm extends javax.swing.JFrame {
             LowerLeftPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(LowerLeftPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 147, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 216, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(submitQueryButton)
                 .addContainerGap())
@@ -175,14 +279,14 @@ public class DataInputForm extends javax.swing.JFrame {
             LowerRightPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, LowerRightPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 264, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 291, Short.MAX_VALUE)
                 .addContainerGap())
         );
         LowerRightPanelLayout.setVerticalGroup(
             LowerRightPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, LowerRightPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 176, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 245, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -198,6 +302,7 @@ public class DataInputForm extends javax.swing.JFrame {
             String tableName = null;
 
             resultTextArea.setText((String) ObjectSelectComboBox.getSelectedItem());
+            
             switch ((String) ObjectSelectComboBox.getSelectedItem()) {
 
                 case "Instrument":
@@ -211,26 +316,129 @@ public class DataInputForm extends javax.swing.JFrame {
                 case "Cartridge":
                     tableName = "Cartridge_Manufactured";
                     break;
-                    
+
                 case "Test Instances":
                     tableName = "Clinical_Test_Instance";
                     break;
-                    
+
                 case "Errors":
                     tableName = "Errors";
                     break;
-                    
+
                 default:
                     System.out.println("Unknown button pressed");
                     break;
             }
 
             resultTextArea.setText("");
-            columnNames = queries.getTableColumnNames(tableName);
-            for (String Name : columnNames) {
-                resultTextArea.setText(resultTextArea.getText() + Name + "\n");
-            }
 
+            columnNames = queries.getTableColumnNames(tableName);
+
+            for (int index = 0; index < MaxNumberOfColumnCheckBoxes; index++) {
+//                String Name = columnNames.get(index);
+
+                if (index == 0) {
+                    if (index < columnNames.size()) {
+                        String Name = columnNames.get(index);
+                        resultTextArea.setText(resultTextArea.getText() + Name + "\n");
+                        columnCheckBox1.setText(Name);
+                        columnCheckBox1.setVisible(true);
+                    } else {
+                        columnCheckBox1.setVisible(false);
+                    }
+                } else if (index == 1) {
+                    if (index < columnNames.size()) {
+                        String Name = columnNames.get(index);
+                        resultTextArea.setText(resultTextArea.getText() + Name + "\n");
+                        columnCheckBox2.setText(Name);
+                        columnCheckBox2.setVisible(true);
+                    } else {
+                        columnCheckBox2.setVisible(false);
+                    }
+                } else if (index == 2) {
+                    if (index < columnNames.size()) {
+                        String Name = columnNames.get(index);
+                        resultTextArea.setText(resultTextArea.getText() + Name + "\n");
+                        columnCheckBox3.setText(Name);
+                        columnCheckBox3.setVisible(true);
+                    } else {
+                        columnCheckBox3.setVisible(false);
+                    }
+                } else if (index == 3) {
+                    if (index < columnNames.size()) {
+                        String Name = columnNames.get(index);
+                        resultTextArea.setText(resultTextArea.getText() + Name + "\n");
+                        columnCheckBox4.setText(Name);
+                        columnCheckBox4.setVisible(true);
+                    } else {
+                        columnCheckBox4.setVisible(false);
+                    }
+                } else if (index == 4) {
+                    if (index < columnNames.size()) {
+                        String Name = columnNames.get(index);
+                        resultTextArea.setText(resultTextArea.getText() + Name + "\n");
+                        columnCheckBox5.setText(Name);
+                        columnCheckBox5.setVisible(true);
+                    } else {
+                        columnCheckBox5.setVisible(false);
+                    }
+                } else if (index == 5) {
+                    if (index < columnNames.size()) {
+                        String Name = columnNames.get(index);
+                        resultTextArea.setText(resultTextArea.getText() + Name + "\n");
+                        columnCheckBox6.setText(Name);
+                        columnCheckBox6.setVisible(true);
+                    } else {
+                        columnCheckBox6.setVisible(false);
+                    }
+                } else if (index == 6) {
+                    if (index < columnNames.size()) {
+                        String Name = columnNames.get(index);
+                        resultTextArea.setText(resultTextArea.getText() + Name + "\n");
+                        columnCheckBox7.setText(Name);
+                        columnCheckBox7.setVisible(true);
+                    } else {
+                        columnCheckBox7.setVisible(false);
+                    }
+                } else if (index == 7) {
+                    if (index < columnNames.size()) {
+                        String Name = columnNames.get(index);
+                        resultTextArea.setText(resultTextArea.getText() + Name + "\n");
+                        columnCheckBox8.setText(Name);
+                        columnCheckBox8.setVisible(true);
+                    } else {
+                        columnCheckBox8.setVisible(false);
+                    }
+                } else if (index == 8) {
+                    if (index < columnNames.size()) {
+                        String Name = columnNames.get(index);
+                        resultTextArea.setText(resultTextArea.getText() + Name + "\n");
+                        columnCheckBox9.setText(Name);
+                        columnCheckBox9.setVisible(true);
+                    } else {
+                        columnCheckBox9.setVisible(false);
+                    }
+                } else if (index == 9) {
+                    if (index < columnNames.size()) {
+                        String Name = columnNames.get(index);
+                        resultTextArea.setText(resultTextArea.getText() + Name + "\n");
+                        columnCheckBox10.setText(Name);
+                        columnCheckBox10.setVisible(true);
+                    } else {
+                        columnCheckBox10.setVisible(false);
+                    }
+                } else if (index == 10) {
+                    if (index < columnNames.size()) {
+                        String Name = columnNames.get(index);                    
+                        resultTextArea.setText(resultTextArea.getText() + Name + "\n");
+                        columnCheckBox11.setText(Name);
+                        columnCheckBox11.setVisible(true);
+                    } else {
+                        columnCheckBox11.setVisible(false);
+                    }
+                }
+            }
+            
         } catch (Exception e) {
             // handle the error
             System.out.println("\n" + "General Exception " + e.getMessage());
@@ -240,6 +448,22 @@ public class DataInputForm extends javax.swing.JFrame {
 
         }   //end finally 
     }//GEN-LAST:event_ObjectSelectComboBoxActionPerformed
+
+    private void CreateRadioButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CreateRadioButtonActionPerformed
+        inputTextArea.setText("Create ");
+    }//GEN-LAST:event_CreateRadioButtonActionPerformed
+
+    private void ReadRadioButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ReadRadioButtonActionPerformed
+        inputTextArea.setText("Select * From ");
+    }//GEN-LAST:event_ReadRadioButtonActionPerformed
+
+    private void UpdateRadioButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UpdateRadioButtonActionPerformed
+        inputTextArea.setText("Update ");
+    }//GEN-LAST:event_UpdateRadioButtonActionPerformed
+
+    private void DeleteRadioButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DeleteRadioButtonActionPerformed
+        inputTextArea.setText("Delete ");
+    }//GEN-LAST:event_DeleteRadioButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -288,7 +512,19 @@ public class DataInputForm extends javax.swing.JFrame {
     private javax.swing.JRadioButton UpdateRadioButton;
     private javax.swing.JPanel UpperLeftPanel;
     private javax.swing.JPanel UpperRightPanel;
+    private javax.swing.JCheckBox columnCheckBox1;
+    private javax.swing.JCheckBox columnCheckBox10;
+    private javax.swing.JCheckBox columnCheckBox11;
+    private javax.swing.JCheckBox columnCheckBox2;
+    private javax.swing.JCheckBox columnCheckBox3;
+    private javax.swing.JCheckBox columnCheckBox4;
+    private javax.swing.JCheckBox columnCheckBox5;
+    private javax.swing.JCheckBox columnCheckBox6;
+    private javax.swing.JCheckBox columnCheckBox7;
+    private javax.swing.JCheckBox columnCheckBox8;
+    private javax.swing.JCheckBox columnCheckBox9;
     private javax.swing.JTextArea inputTextArea;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTextArea resultTextArea;
