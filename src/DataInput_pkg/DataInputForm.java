@@ -335,7 +335,6 @@ public class DataInputForm extends javax.swing.JFrame {
             columnNames = queries.getTableColumnNames(tableName);
 
             for (int index = 0; index < MaxNumberOfColumnCheckBoxes; index++) {
-//                String Name = columnNames.get(index);
 
                 if (index == 0) {
                     if (index < columnNames.size()) {
